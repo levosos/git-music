@@ -17,6 +17,8 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import { Avatar } from '@material-ui/core';
+import grey from '@material-ui/core/colors/grey';
 
 const styles = theme => ({
   root: {
@@ -24,6 +26,9 @@ const styles = theme => ({
   },
   grow: {
     flexGrow: 1,
+  },
+  avatar: {
+    backgroundColor: grey[100],
   },
   menuButton: {
     marginLeft: -12,
@@ -204,7 +209,7 @@ class PrimarySearchAppBar extends React.Component {
                 onClick={this.handleProfileMenuOpen}
                 color="inherit"
               >
-                <AccountCircle />
+              <Avatar src={"/avatars/1.png"} className={classes.avatar} />
               </IconButton>
             </div>
             <div className={classes.sectionMobile}>

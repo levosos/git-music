@@ -19,6 +19,11 @@ const Users = {
         role: 'lead guitar',
         avatar: 'george',
     },
+    'martin': {
+        name: 'George Martin',
+        role: 'producer',
+        avatar: '1',
+    },
 };
 
 export default Users;
