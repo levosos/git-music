@@ -14,6 +14,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import Users from '../Users';
 import red from '@material-ui/core/colors/red';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const styles = _ => ({
   header: {
@@ -75,14 +76,18 @@ class Note extends React.Component {
           </Typography>
         </CardContent>
         <CardActions className={classes.actions} disableActionSpacing>
-           <IconButton onClick={this.handleLikeClicked}>
-             <Badge invisible={!this.state.likes} badgeContent={this.state.likes}>
-                <FavoriteIcon className={this.state.liked ? classes.favorite : undefined} />
-             </Badge>
-           </IconButton>
-          <IconButton aria-label="Share">
-            <ShareIcon />
-          </IconButton>
+            <Tooltip title="Like">
+                <IconButton onClick={this.handleLikeClicked}>
+                    <Badge invisible={!this.state.likes} badgeContent={this.state.likes}>
+                        <FavoriteIcon className={this.state.liked ? classes.favorite : undefined} />
+                    </Badge>
+                </IconButton>
+            </Tooltip>
+            <Tooltip title="Share">
+                <IconButton>
+                    <ShareIcon />
+                </IconButton>
+            </Tooltip>
         </CardActions>
       </Card>
     );
