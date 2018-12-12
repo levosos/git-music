@@ -19,15 +19,13 @@ class App extends Component {
     {
       user: 'john',
       date: 'November 29, 1967 16:32',
-      likes: 2,
-      liked: false,
       content: <span>After talking with <Tag user='paul'>paul</Tag>, I added a solo to 'Something'</span>
     },    
     {
       user: 'paul',
       date: 'November 30, 1967 17:08',
-      likes: 1,
-      liked: true,
+      thumbUpClicked: true,
+      thumbUpCount: 1,
       content: <span>I think I like it! Let's ask <Tag user='ringo'>ringo</Tag> and <Tag user='george'>george</Tag> what they think</span>
     },
   ];
@@ -43,8 +41,8 @@ class App extends Component {
           <div>
             {this.notes.map((note) => {
               return <Note
-                        likes={note.likes}
-                        liked={note.liked}
+                        thumbUpClicked={note.thumbUpClicked}
+                        thumbUpCount={note.thumbUpCount}
                         user={note.user}
                         date={note.date}
                       >
