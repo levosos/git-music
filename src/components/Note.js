@@ -9,6 +9,12 @@ import CardActions from '@material-ui/core/CardActions';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import ShareIcon from '@material-ui/icons/Share';
@@ -21,6 +27,10 @@ import Tooltip from '@material-ui/core/Tooltip';
 const styles = _ => ({
   header: {
     backgroundColor: '#7BDCB5',
+    height: 33,
+  },
+  headerLoggedIn: {
+    backgroundColor: '#74b9ff',
     height: 33,
   },
   card: {
@@ -49,10 +59,20 @@ const styles = _ => ({
 
 class Note extends React.Component {
     state = {
+        anchorEl:           null,
+
         thumbUpCount:       this.props.thumbUpCount | 0,
         thumbUpClicked:     this.props.thumbUpClicked | false,
         thumbDownCount:     this.props.thumbDownCount | 0,
         thumbDownClicked:   this.props.thumbDownClicked | false,
+    };
+    
+    handleMenuClick = event => {
+        this.setState({ anchorEl: event.currentTarget });
+    };
+    
+    handleMenuClose = () => {
+        this.setState({ anchorEl: null });
     };
     
     handleThumbUpClicked = _ => {
@@ -89,8 +109,33 @@ class Note extends React.Component {
 
     return (
       <Card className={classes.card}>
-        <CardHeader className={classes.header}
+        <CardHeader className={user.loggedIn ? classes.headerLoggedIn : classes.header}
           avatar={<Avatar src={"/avatars/" + user.avatar + ".png"} className={classes.avatar} />}
+          action={user.loggedIn &&
+            <React.Fragment>
+                <IconButton onClick={this.handleMenuClick}>
+                    <MoreVertIcon />
+                </IconButton>
+                <Menu
+                    anchorEl={this.state.anchorEl}
+                    open={Boolean(this.state.anchorEl)}
+                    onClose={this.handleMenuClose}
+                >
+                    <MenuItem onClick={this.handleMenuClose}>
+                        <ListItemIcon>
+                            <EditIcon />
+                        </ListItemIcon>
+                        Edit
+                    </MenuItem>
+                    <MenuItem onClick={this.handleMenuClose}>
+                        <ListItemIcon>
+                            <DeleteIcon />
+                        </ListItemIcon>
+                        Delete
+                    </MenuItem>
+                </Menu>
+            </React.Fragment>
+          }
           title={<b>{user.name}</b>}
           subheader={this.props.date}
         />
@@ -101,14 +146,14 @@ class Note extends React.Component {
         </CardContent>
         <CardActions className={classes.actions} disableActionSpacing>
             <Tooltip title="Like">
-                <IconButton disabled={this.state.thumbDownClicked} onClick={this.handleThumbUpClicked}>
+                <IconButton disabled={user.loggedIn || this.state.thumbDownClicked} onClick={this.handleThumbUpClicked}>
                     <Badge invisible={!this.state.thumbUpCount} badgeContent={this.state.thumbUpCount}>
                         <ThumbUpIcon className={this.state.thumbUpClicked ? classes.likeClicked : undefined} />
                     </Badge>
                 </IconButton>
             </Tooltip>
             <Tooltip title="Disike">
-                <IconButton disabled={this.state.thumbUpClicked} onClick={this.handleThumbDownClicked}>
+                <IconButton disabled={user.loggedIn || this.state.thumbUpClicked} onClick={this.handleThumbDownClicked}>
                     <Badge invisible={!this.state.thumbDownCount} badgeContent={this.state.thumbDownCount}>
                         <ThumbDownIcon className={this.state.thumbDownClicked ? classes.dislikeClicked : undefined} />
                     </Badge>

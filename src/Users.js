@@ -23,6 +23,7 @@ const Users = {
         name: 'George Martin',
         role: 'producer',
         avatar: '1',
+        loggedIn: true,
     },
 };
 

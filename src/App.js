@@ -18,12 +18,17 @@ class App extends Component {
   notes = [
     {
       user: 'john',
-      date: 'November 29, 1967 16:32',
+      date: 'April 2, 1969 16:32',
       content: <span>After talking with <Tag user='paul'>paul</Tag>, I added a solo to 'Something'</span>
     },    
     {
+      user: 'martin',
+      date: 'April 3, 1969 11:21',
+      content: <span>I think I like it! Let's ask <Tag user='ringo'>ringo</Tag> and <Tag user='george'>george</Tag> what they think</span>
+    },
+    {
       user: 'paul',
-      date: 'November 30, 1967 17:08',
+      date: 'April 3, 1969 17:08',
       thumbUpClicked: true,
       thumbUpCount: 1,
       content: <span>I think I like it! Let's ask <Tag user='ringo'>ringo</Tag> and <Tag user='george'>george</Tag> what they think</span>
