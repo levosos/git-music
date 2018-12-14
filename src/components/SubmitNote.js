@@ -24,19 +24,24 @@ const styles = theme => ({
 class SubmitNote extends React.Component {
     state = {
         disabled: true,
-        message: '',
+        value: '',
     };
 
     handleTextChange = event => {
-        const value = event.target.value;
+        const message = event.target.value;
+
         this.setState({
-            disabled: value === '',
-            message: value,
+            disabled: message === '',
+            value: message,
         });
     };
 
     handleSubmit = _ => {
-        this.props.onSubmit(this.state.message);
+        this.props.onSubmit(this.state.value);
+        this.setState({
+            disabled: true,
+            value: '',
+        });
     };
 
     render() {
@@ -47,6 +52,7 @@ class SubmitNote extends React.Component {
                 <TextField
                     label="Write a note"
                     placeholder="Enter your note here"
+                    value={this.state.value}
                     // helperText="Tip: You can tag other users by typing '@' before their name"
                     fullWidth
                     multiline
