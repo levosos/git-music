@@ -4,6 +4,7 @@ import blue from '@material-ui/core/colors/blue';
 import Note from './components/Note';
 import PrimarySearchAppBar from './components/PrimarySearchAppBar';
 import Description from './components/Description';
+import SubmitNote from './components/SubmitNote';
 import Tag from './components/Tag';
 import Divider from '@material-ui/core/Divider';
 import './App.css';
@@ -34,28 +35,30 @@ class App extends Component {
       content: <span>I think I like it! Let's ask <Tag user='ringo'>ringo</Tag> and <Tag user='george'>george</Tag> what they think</span>
     },
   ];
+
+  handleSubmit = message => {
+    console.log(message);
+  };
+
   render() {
     return (
       <MuiThemeProvider theme={theme}>
-        <div>
-          <PrimarySearchAppBar />
-          <Description user='martin' date='November 27, 1967 10:10'>
+        <PrimarySearchAppBar />
+        <Description user='martin' date='November 27, 1967 10:10'>
           Hi guys
-          </Description>
-          <Divider />
-          <div>
-            {this.notes.map((note) => {
-              return <Note
-                        thumbUpClicked={note.thumbUpClicked}
-                        thumbUpCount={note.thumbUpCount}
-                        user={note.user}
-                        date={note.date}
-                      >
-                        {note.content}
-                      </Note>})}
-          </div>
-          <Divider />
-        </div>
+        </Description>
+        <Divider />
+        {this.notes.map((note) => {
+          return <Note
+                    thumbUpClicked={note.thumbUpClicked}
+                    thumbUpCount={note.thumbUpCount}
+                    user={note.user}
+                    date={note.date}
+                  >
+                    {note.content}
+                  </Note>})}
+        <Divider />
+        <SubmitNote onSubmit={this.handleSubmit}/>
       </MuiThemeProvider>
     );
   }
