@@ -41,8 +41,8 @@ const styles = _ => ({
   },
   card: {
     margin: 15,
-    marginLeft: 50,
-    marginRight: 50,
+    marginLeft: 100,
+    marginRight: 100,
   },
   actions: {
     height: 50,
