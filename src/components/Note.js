@@ -23,6 +23,12 @@ import grey from '@material-ui/core/colors/grey';
 import red from '@material-ui/core/colors/red';
 import green from '@material-ui/core/colors/green';
 import Tooltip from '@material-ui/core/Tooltip';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Button from '@material-ui/core/Button';
 
 const styles = _ => ({
   header: {
@@ -65,6 +71,9 @@ class Note extends React.Component {
         thumbUpClicked:     this.props.thumbUpClicked | false,
         thumbDownCount:     this.props.thumbDownCount | 0,
         thumbDownClicked:   this.props.thumbDownClicked | false,
+
+        deleteNoteAlertOpen: false,
+        deleted: false,
     };
     
     handleMenuClick = event => {
@@ -103,6 +112,26 @@ class Note extends React.Component {
         });
     };
 
+    handleDeleteNoteAlertOpen = _ => {
+        this.handleMenuClose();
+        this.setState({
+            deleteNoteAlertOpen: true,
+        });
+    };
+
+    handleDeleteNoteAlertCancel = _ => {
+        this.setState({
+            deleteNoteAlertOpen: false,
+        });
+    };
+
+    handleDeleteNoteAlertDelete = _ => {
+        this.setState({
+            deleteNoteAlertOpen: false,
+            deleted: true,
+        });
+    };
+
   render() {
     const { classes } = this.props;
     const user = Users[this.props.user];
@@ -127,13 +156,34 @@ class Note extends React.Component {
                         </ListItemIcon>
                         Edit
                     </MenuItem>
-                    <MenuItem onClick={this.handleMenuClose}>
+                    <MenuItem onClick={this.handleDeleteNoteAlertOpen}>
                         <ListItemIcon>
                             <DeleteIcon />
                         </ListItemIcon>
                         Delete
                     </MenuItem>
                 </Menu>
+                <Dialog
+                    open={this.state.deleteNoteAlertOpen}
+                    onClose={this.handleDeleteNoteAlertCancel}
+                >
+                    <DialogTitle>{"Delete this note?"}</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText>
+                            After deleting a note, other users will see the note was deleted and will
+                            not be able to see its contents.
+                            You will be able to re-add it any time afterwards
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={this.handleDeleteNoteAlertCancel} autoFocus>
+                            Cancel
+                        </Button>
+                        <Button onClick={this.handleDeleteNoteAlertDelete} style={{backgroundColor: '#ff7675'}}>
+                            Delete
+                        </Button>
+                    </DialogActions>
+                </Dialog>
             </React.Fragment>
           }
           title={<b>{user.name}</b>}
