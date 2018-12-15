@@ -23,7 +23,9 @@ class App extends Component {
       {
         user: 'john',
         date: 'April 2, 1969 16:32',
-        content: <span>After talking with <Tag user='paul'>paul</Tag>, I added a solo to 'Something'</span>
+        content: <span>After talking with <Tag user='paul'>paul</Tag>, I added a solo to 'Something'</span>,
+        thumbUpClicked: true,
+        thumbUpCount: 1,
       },    
       {
         user: 'martin',
@@ -33,8 +35,7 @@ class App extends Component {
       {
         user: 'paul',
         date: 'April 3, 1969 17:08',
-        thumbUpClicked: true,
-        thumbUpCount: 1,
+        thumbUpCount: 2,
         content: <span>I think I like it! Let's ask <Tag user='ringo'>ringo</Tag> and <Tag user='george'>george</Tag> what they think</span>
       },
     ],
