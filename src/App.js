@@ -7,6 +7,8 @@ import Description from './components/Description';
 import SubmitNote from './components/SubmitNote';
 import Tag from './components/Tag';
 import Divider from '@material-ui/core/Divider';
+import Breadcrumb from './components/Breadcrumb';
+import Typography from '@material-ui/core/Typography';
 import './App.css';
 
 const theme = createMuiTheme({
@@ -54,6 +56,21 @@ class App extends Component {
     return (
       <MuiThemeProvider theme={theme}>
         <PrimarySearchAppBar />
+        <div style={{marginLeft: 15, marginTop: 15}}>
+        <Typography variant='h6' color="primary">
+          <Breadcrumb image="TheBeatles.jpg">
+            The Beatles
+          </Breadcrumb>
+          <span> / </span>
+          <Breadcrumb image="Abbey_Road.jpg">
+            Abbey Road
+          </Breadcrumb>
+          <span> / </span>
+          <Breadcrumb>
+            Oh! Darling
+          </Breadcrumb>
+        </Typography>
+        </div>
         <Description user='martin' date='November 27, 1967 10:10'>
           Hi guys
         </Description>
