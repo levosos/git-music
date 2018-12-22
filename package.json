@@ -9,7 +9,8 @@
     "react-dom": "^16.6.3",
     "react-scripts": "2.1.1",
     "react-wavesurfer": "^0.8.6",
-    "waveform-react": "^0.2.3"
+    "waveform-react": "^0.2.3",
+    "wavesurfer.js": "^1.4.0"
   },
   "scripts": {
     "start": "react-scripts start",

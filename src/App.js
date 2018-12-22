@@ -8,6 +8,7 @@ import SubmitNote from './components/SubmitNote';
 import Tag from './components/Tag';
 import Divider from '@material-ui/core/Divider';
 import Breadcrumb from './components/Breadcrumb';
+import Wavesurfer from './components/Wavesurfer';
 import Typography from '@material-ui/core/Typography';
 import './App.css';
 
@@ -75,6 +76,7 @@ class App extends Component {
         <Description user='martin' date='November 27, 1967 10:10'>
           Hi guys
         </Description>
+        <Wavesurfer />
         <Divider />
         {this.state.notes.map((note) => {
           return <Note
