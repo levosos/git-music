@@ -14,6 +14,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import DeleteIcon from '@material-ui/icons/Delete';
+import RestoreIcon from '@material-ui/icons/Restore';
 import EditIcon from '@material-ui/icons/Edit';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
@@ -35,14 +36,18 @@ const styles = _ => ({
     backgroundColor: '#7BDCB5',
     height: 33,
   },
+  headerDeleted: {
+    backgroundColor: grey[200],
+    height: 33,
+  },
   headerLoggedIn: {
     backgroundColor: '#74b9ff',
     height: 33,
   },
   card: {
     margin: 15,
-    marginLeft: 100,
-    marginRight: 100,
+    marginLeft: 150,
+    marginRight: 150,
   },
   actions: {
     height: 50,
@@ -132,13 +137,20 @@ class Note extends React.Component {
         });
     };
 
+    handleRestore = _ => {
+        this.handleMenuClose();
+        this.setState({
+            deleted: false,
+        });
+    };
+
   render() {
     const { classes } = this.props;
     const user = Users[this.props.user];
 
     return (
       <Card className={classes.card}>
-        <CardHeader className={user.loggedIn ? classes.headerLoggedIn : classes.header}
+        <CardHeader className={this.state.deleted ? classes.headerDeleted : (user.loggedIn ? classes.headerLoggedIn : classes.header)}
           avatar={<Avatar src={"/avatars/" + user.avatar + ".png"} className={classes.avatar} />}
           action={user.loggedIn &&
             <React.Fragment>
@@ -150,18 +162,29 @@ class Note extends React.Component {
                     open={Boolean(this.state.anchorEl)}
                     onClose={this.handleMenuClose}
                 >
-                    <MenuItem onClick={this.handleMenuClose}>
-                        <ListItemIcon>
-                            <EditIcon />
-                        </ListItemIcon>
-                        Edit
-                    </MenuItem>
-                    <MenuItem onClick={this.handleDeleteNoteAlertOpen}>
-                        <ListItemIcon>
-                            <DeleteIcon />
-                        </ListItemIcon>
-                        Delete
-                    </MenuItem>
+                    {!this.state.deleted && (
+                        <>
+                            <MenuItem onClick={this.handleMenuClose}>
+                                <ListItemIcon>
+                                    <EditIcon />
+                                </ListItemIcon>
+                                Edit
+                            </MenuItem>
+                            <MenuItem onClick={this.handleDeleteNoteAlertOpen}>
+                                <ListItemIcon>
+                                    <DeleteIcon />
+                                </ListItemIcon>
+                                Delete
+                            </MenuItem>
+                        </>)}
+                    {this.state.deleted && (
+                        <MenuItem onClick={this.handleRestore}>
+                            <ListItemIcon>
+                                <RestoreIcon />
+                            </ListItemIcon>
+                            Restore
+                        </MenuItem>
+                    )}
                 </Menu>
                 <Dialog
                     open={this.state.deleteNoteAlertOpen}
@@ -191,26 +214,27 @@ class Note extends React.Component {
         />
         <CardContent className={classes.content}>
           <Typography component="p">
-            {this.props.children}
+            {!this.state.deleted && this.props.children}
+            {this.state.deleted && "This message was deleted by its author"}
           </Typography>
         </CardContent>
         <CardActions className={classes.actions} disableActionSpacing>
             <Tooltip title="Like">
-                <IconButton disabled={user.loggedIn || this.state.thumbDownClicked} onClick={this.handleThumbUpClicked}>
+                <IconButton disabled={this.state.deleted || user.loggedIn || this.state.thumbDownClicked} onClick={this.handleThumbUpClicked}>
                     <Badge invisible={!this.state.thumbUpCount} badgeContent={this.state.thumbUpCount}>
                         <ThumbUpIcon className={this.state.thumbUpClicked ? classes.likeClicked : undefined} />
                     </Badge>
                 </IconButton>
             </Tooltip>
             <Tooltip title="Disike">
-                <IconButton disabled={user.loggedIn || this.state.thumbUpClicked} onClick={this.handleThumbDownClicked}>
+                <IconButton disabled={this.state.deleted || user.loggedIn || this.state.thumbUpClicked} onClick={this.handleThumbDownClicked}>
                     <Badge invisible={!this.state.thumbDownCount} badgeContent={this.state.thumbDownCount}>
                         <ThumbDownIcon className={this.state.thumbDownClicked ? classes.dislikeClicked : undefined} />
                     </Badge>
                 </IconButton>
             </Tooltip>
             <Tooltip title="Share">
-                <IconButton>
+                <IconButton disabled={this.state.deleted}>
                     <ShareIcon />
                 </IconButton>
             </Tooltip>

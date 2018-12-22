@@ -8,8 +8,8 @@ import SendIcon from '@material-ui/icons/Send';
 
 const styles = theme => ({
     container: {
-        marginLeft: 100,
-        marginRight: 100,
+        marginLeft: 150,
+        marginRight: 150,
         marginTop: 10,
         marginBottom: 10
     },
