@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import blue from '@material-ui/core/colors/blue';
-import Note from './components/Note';
+import Conversation from './components/Conversation';
 import PrimarySearchAppBar from './components/PrimarySearchAppBar';
 import Description from './components/Description';
-import SubmitNote from './components/SubmitNote';
-import Tag from './components/Tag';
 import Divider from '@material-ui/core/Divider';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
 import Breadcrumb from './components/Breadcrumb';
 import Wavesurfer from './components/Wavesurfer';
 import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
 import './App.css';
 
 const theme = createMuiTheme({
@@ -18,43 +21,15 @@ const theme = createMuiTheme({
   },
 });
 
-class App extends Component {
-  state = {
-    notes: [
-      {
-        user: 'john',
-        date: 'April 2, 1969 16:32',
-        content: <span>After talking with <Tag user='paul'>paul</Tag>, I added a solo to 'Something'</span>,
-        thumbUpClicked: true,
-        thumbUpCount: 1,
-      },    
-      {
-        user: 'martin',
-        date: 'April 3, 1969 11:21',
-        content: <span>I think I like it! Let's ask <Tag user='ringo'>ringo</Tag> and <Tag user='george'>george</Tag> what they think</span>
-      },
-      {
-        user: 'paul',
-        date: 'April 3, 1969 17:08',
-        thumbUpCount: 2,
-        content: <span>I think I like it! Let's ask <Tag user='ringo'>ringo</Tag> and <Tag user='george'>george</Tag> what they think</span>
-      },
-    ],
-  };
-  
-  handleSubmit = message => {
-    var notes = this.state.notes;
-    notes.push({
-      user: 'martin',
-      date: 'April 5, 1969 20:09',
-      content: message
-    });
-    this.setState({
-      notes: notes,
-    })
-  };
+const styles = _ => ({
+  grid: {
+    padding: 30,
+  },
+});
 
+class App extends Component {
   render() {
+    const { classes } = this.props;
     return (
       <MuiThemeProvider theme={theme}>
         <PrimarySearchAppBar />
@@ -81,20 +56,36 @@ class App extends Component {
         <Description user='martin' date='November 27, 1967 10:10' />
         <Wavesurfer />
         <Divider />
-        {this.state.notes.map((note) => {
-          return <Note
-                    thumbUpClicked={note.thumbUpClicked}
-                    thumbUpCount={note.thumbUpCount}
-                    user={note.user}
-                    date={note.date}
-                  >
-                    {note.content}
-                  </Note>})}
-        <Divider />
-        <SubmitNote onSubmit={this.handleSubmit}/>
+        <Grid
+          container
+          spacing={16}
+          className={classes.grid}
+          direction="row"
+          justify="center"
+          alignItems="flex-start"
+        >
+          <Grid item xs={7}>
+            <Conversation/>
+            </Grid>
+            <Grid item xs={3}>
+            <Card>
+              <CardContent>
+                <Typography>
+                  <b>Specs</b>
+                  <br/>
+                  TBD
+                </Typography>
+              </CardContent>
+            </Card>
+            </Grid>
+          </Grid>
       </MuiThemeProvider>
     );
   }
 }
 
-export default App;
+App.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(App);
