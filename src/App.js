@@ -61,21 +61,24 @@ class App extends Component {
         <div style={{marginLeft: 15, marginTop: 15}}>
         <Typography variant='h6' color="primary">
           <Breadcrumb image="TheBeatles.jpg">
-            The Beatles
+            <b>The Beatles</b>
           </Breadcrumb>
           <span> / </span>
           <Breadcrumb image="Abbey_Road.jpg">
-            Abbey Road
+            <b>Abbey Road</b>
           </Breadcrumb>
           <span> / </span>
           <Breadcrumb>
-            Oh! Darling
+            <b>Oh! Darling</b>
           </Breadcrumb>
         </Typography>
         </div>
-        <Description user='martin' date='November 27, 1967 10:10'>
-          Hi guys
-        </Description>
+        <div style={{marginLeft: 15, marginTop: 15}}>
+        <Typography variant='h4'>
+          Changed the effects in the main solo
+        </Typography>
+        </div>
+        <Description user='martin' date='November 27, 1967 10:10' />
         <Wavesurfer />
         <Divider />
         {this.state.notes.map((note) => {
