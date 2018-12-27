@@ -23,6 +23,7 @@ import Users from '../Users';
 import grey from '@material-ui/core/colors/grey';
 import red from '@material-ui/core/colors/red';
 import green from '@material-ui/core/colors/green';
+import amber from '@material-ui/core/colors/amber';
 import Tooltip from '@material-ui/core/Tooltip';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -30,6 +31,78 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
+import Snackbar from '@material-ui/core/Snackbar';
+import SnackbarContent from '@material-ui/core/SnackbarContent';
+import InfoIcon from '@material-ui/icons/Info';
+import WarningIcon from '@material-ui/icons/Warning';
+
+const snackbarStyles = theme => ({
+    deletesnackbar: {
+      backgroundColor: amber[700],
+    },
+    restoresnackbar: {
+      backgroundColor: green[500],
+    },
+    icon: {
+      fontSize: 20,
+      opacity: 0.9,
+      marginRight: theme.spacing.unit,
+    },
+    message: {
+      display: 'flex',
+      alignItems: 'center',
+    },
+});
+
+function DeletedSnackbarContent(props) {
+    const { classes, onUndo } = props;
+  
+    return (
+      <SnackbarContent
+        className={classes.deletesnackbar}
+        message={
+          <span className={classes.message}>
+            <WarningIcon className={classes.icon} />
+            Your message is gone
+          </span>
+        }
+        action={[
+            <Button onClick={onUndo}>
+              Undo
+            </Button>
+          ]}
+      />
+    );
+  }
+  
+DeletedSnackbarContent.propTypes = {
+    classes: PropTypes.object.isRequired,
+    onUndo: PropTypes.func,
+};
+  
+const DeletedSnackbarContentWrapper = withStyles(snackbarStyles)(DeletedSnackbarContent);
+
+function RestoreSnackbarContent(props) {
+    const { classes } = props;
+  
+    return (
+      <SnackbarContent
+        className={classes.restoresnackbar}
+        message={
+          <span className={classes.message}>
+            <InfoIcon className={classes.icon} />
+            Your message is alive again!
+          </span>
+        }
+      />
+    );
+  }
+  
+RestoreSnackbarContent.propTypes = {
+    classes: PropTypes.object.isRequired,
+};
+  
+const RestoreSnackbarContentWrapper = withStyles(snackbarStyles)(RestoreSnackbarContent);
 
 const styles = _ => ({
   header: {
@@ -79,6 +152,8 @@ class Note extends React.Component {
 
         deleteNoteAlertOpen: false,
         deleted: false,
+        deletedSnackbarOpen: false,
+        restoreSnackbarOpen: false,
     };
     
     handleMenuClick = event => {
@@ -134,13 +209,28 @@ class Note extends React.Component {
         this.setState({
             deleteNoteAlertOpen: false,
             deleted: true,
+            deletedSnackbarOpen: true,
         });
     };
 
     handleRestore = _ => {
         this.handleMenuClose();
+        this.handleDeletedSnackbarClose();
         this.setState({
             deleted: false,
+            restoreSnackbarOpen: true,
+        });
+    };
+
+    handleDeletedSnackbarClose = _ => {
+        this.setState({
+            deletedSnackbarOpen: false,
+        });
+    };
+
+    handleRestoreSnackbarClose = _ => {
+        this.setState({
+            restoreSnackbarOpen: false,
         });
     };
 
@@ -154,6 +244,33 @@ class Note extends React.Component {
           avatar={<Avatar src={"/avatars/" + user.avatar + ".png"} className={classes.avatar} />}
           action={user.loggedIn &&
             <React.Fragment>
+
+                <Snackbar
+                    anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'left',
+                    }}
+                    open={this.state.deletedSnackbarOpen}
+                    autoHideDuration={4000}
+                    onClose={this.handleDeletedSnackbarClose}
+                >
+                    <DeletedSnackbarContentWrapper
+                        onUndo={this.handleRestore}
+                    />
+                </Snackbar>
+
+                <Snackbar
+                    anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'left',
+                    }}
+                    open={this.state.restoreSnackbarOpen}
+                    autoHideDuration={4000}
+                    onClose={this.handleRestoreSnackbarClose}
+                >
+                    <RestoreSnackbarContentWrapper/>
+                </Snackbar>
+
                 <IconButton onClick={this.handleMenuClick}>
                     <MoreVertIcon />
                 </IconButton>
