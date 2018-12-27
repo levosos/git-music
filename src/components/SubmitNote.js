@@ -43,11 +43,10 @@ function MySnackbarContent(props) {
     return (
       <SnackbarContent
         className={classes.snackbar}
-        aria-describedby="client-snackbar"
         message={
-          <span id="client-snackbar" className={classes.message}>
+          <span className={classes.message}>
             <CheckCircleIcon className={classes.icon} />
-            Your message is now published
+            Now the world knows what you think!
           </span>
         }
       />
