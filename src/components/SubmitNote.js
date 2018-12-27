@@ -48,7 +48,7 @@ class SubmitNote extends React.Component {
             <div className={classes.container}>
                 <TextField
                     label="Write a note"
-                    placeholder="Enter your note here"
+                    placeholder="Let everyone know what's on your mind"
                     value={this.state.value}
                     // helperText="Tip: You can tag other users by typing '@' before their name"
                     fullWidth
@@ -69,7 +69,7 @@ class SubmitNote extends React.Component {
                         className={classes.button}
                         onClick={this.handleSubmit}
                     >
-                        Send
+                        Tell us
                         <SendIcon className={classes.rightIcon} />
                     </Button>
                 </Grid>
