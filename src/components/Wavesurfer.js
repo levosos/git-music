@@ -5,10 +5,6 @@ import { default as Ws } from 'react-wavesurfer';
 import Button from '@material-ui/core/Button';
 
 const styles = _ => ({
-  wavesurfer: {
-    marginLeft: 100,
-    marginRight: 100,
-  },
 });
 
 class Wavesurfer extends React.Component {
@@ -32,7 +28,7 @@ class Wavesurfer extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-      <div className={classes.wavesurfer}>
+      <div>
         <Ws
           audioFile={'audio/test.mp3'}
           pos={this.state.pos}

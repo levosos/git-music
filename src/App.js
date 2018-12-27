@@ -13,6 +13,9 @@ import Breadcrumb from './components/Breadcrumb';
 import Wavesurfer from './components/Wavesurfer';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import Toolbar from '@material-ui/core/Toolbar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 import './App.css';
 
 const theme = createMuiTheme({
@@ -22,12 +25,23 @@ const theme = createMuiTheme({
 });
 
 const styles = _ => ({
-  grid: {
-    padding: 30,
+  specs: {
+    marginTop: 60,
+  },
+  hidden: {
+    display: 'none',
   },
 });
 
 class App extends Component {
+  state = {
+    value: 0,
+  };
+  
+  handleTabSelected = (_, value) => {
+    this.setState({ value });
+  };
+  
   render() {
     const { classes } = this.props;
     return (
@@ -54,7 +68,6 @@ class App extends Component {
         </Typography>
         </div>
         <Description user='martin' date='November 27, 1967 10:10' />
-        <Wavesurfer />
         <Divider />
         <Grid
           container
@@ -65,9 +78,20 @@ class App extends Component {
           alignItems="flex-start"
         >
           <Grid item xs={7}>
-            <Conversation/>
-            </Grid>
-            <Grid item xs={3}>
+            <Toolbar position="static">
+              <Tabs
+                value={this.state.value}
+                onChange={this.handleTabSelected}
+                indicatorColor="primary"
+              >
+                <Tab label="Conversation" />
+                <Tab label="Change" />
+              </Tabs>
+            </Toolbar>
+            <div className={this.state.value === 0 ? null : classes.hidden}><Conversation/></div>
+            {this.state.value === 1 && <Wavesurfer/>}
+          </Grid>
+          <Grid item xs={3} className={classes.specs}>
             <Card>
               <CardContent>
                 <Typography>
