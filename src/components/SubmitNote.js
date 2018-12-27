@@ -5,6 +5,10 @@ import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import SendIcon from '@material-ui/icons/Send';
+import Snackbar from '@material-ui/core/Snackbar';
+import SnackbarContent from '@material-ui/core/SnackbarContent';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import green from '@material-ui/core/colors/green';
 
 const styles = theme => ({
     container: {
@@ -18,10 +22,49 @@ const styles = theme => ({
     },
 });
 
+const snackbarStyles = theme => ({
+    snackbar: {
+      backgroundColor: green[600],
+    },
+    icon: {
+      fontSize: 20,
+      opacity: 0.9,
+      marginRight: theme.spacing.unit,
+    },
+    message: {
+      display: 'flex',
+      alignItems: 'center',
+    },
+});
+
+function MySnackbarContent(props) {
+    const { classes } = props;
+  
+    return (
+      <SnackbarContent
+        className={classes.snackbar}
+        aria-describedby="client-snackbar"
+        message={
+          <span id="client-snackbar" className={classes.message}>
+            <CheckCircleIcon className={classes.icon} />
+            Your message is now published
+          </span>
+        }
+      />
+    );
+  }
+  
+MySnackbarContent.propTypes = {
+    classes: PropTypes.object.isRequired,
+};
+  
+const MySnackbarContentWrapper = withStyles(snackbarStyles)(MySnackbarContent);
+  
 class SubmitNote extends React.Component {
     state = {
         disabled: true,
         value: '',
+        open: false,
     };
 
     handleTextChange = event => {
@@ -38,7 +81,12 @@ class SubmitNote extends React.Component {
         this.setState({
             disabled: true,
             value: '',
+            open: true,
         });
+    };
+
+    handleSnackbarClosed = _ => {
+        this.setState({ open: false });
     };
 
     render() {
@@ -72,6 +120,17 @@ class SubmitNote extends React.Component {
                         Tell us
                         <SendIcon className={classes.rightIcon} />
                     </Button>
+                    <Snackbar
+                        anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'left',
+                        }}
+                        open={this.state.open}
+                        autoHideDuration={4000}
+                        onClose={this.handleSnackbarClosed}
+                    >
+                        <MySnackbarContentWrapper />
+                    </Snackbar>
                 </Grid>
             </div>
         );
