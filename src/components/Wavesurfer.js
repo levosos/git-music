@@ -25,6 +25,7 @@ class Wavesurfer extends React.Component {
   state = {
     playing: false,
     pos: 0,
+    duration: 0,
   };
 
   handleTogglePlay = _ => {
@@ -49,9 +50,15 @@ class Wavesurfer extends React.Component {
   
   handleNext = _ => {
     var newPos = this.state.pos + 5;
-    if (newPos > 173) { newPos = 173 }
+    if (newPos > this.state.duration) { newPos = this.state.duration }
     this.setState({
       pos: newPos
+    });
+  }
+
+  onReady = e => {
+    this.setState({
+      duration: e.wavesurfer.getDuration(),
     });
   }
 
@@ -77,6 +84,7 @@ class Wavesurfer extends React.Component {
               cursorColor: '#0984e3',
               responsive: true,
             }}
+            onReady={this.onReady}
           />
         </Grid>
         <Grid item xs={12}>
