@@ -74,7 +74,7 @@ class Wavesurfer extends React.Component {
       >
         <Grid item xs={12}>
           <Ws
-            audioFile={'audio/test.mp3'}
+            audioFile={'audio/ohdarling.mpeg'}
             pos={this.state.pos}
             onPosChange={this.handlePosChange}
             playing={this.state.playing}
