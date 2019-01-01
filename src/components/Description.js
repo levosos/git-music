@@ -18,6 +18,7 @@ import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import ShareIcon from '@material-ui/icons/Share';
 import Users from '../Users';
 import Chip from '@material-ui/core/Chip';
+import Hashtags from './Hashtags';
 
 const styles = theme => ({
   chip: {
@@ -28,6 +29,7 @@ const styles = theme => ({
   },
   card: {
     margin: 15,
+    overflow: 'visible',
   },
   actions: {
     height: 50,
@@ -104,9 +106,10 @@ class Description extends React.Component {
               <br/>
               <br/>
           </Typography>
-          {["Replacement", "Solo", "Guitar", "Effects"].map((label) => {
+          {/* {["Replacement", "Solo", "Guitar", "Effects"].map((label) => {
             return <Chip label={label} color="primary" className={classes.chip}/>
-          })}
+          })} */}
+          <Hashtags />
           </Typography>
         </CardContent>
         <CardActions className={classes.actions} disableActionSpacing>
