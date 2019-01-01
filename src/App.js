@@ -16,6 +16,7 @@ import Grid from '@material-ui/core/Grid';
 import Toolbar from '@material-ui/core/Toolbar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import Tooltip from '@material-ui/core/Tooltip';
 import './App.css';
 
 const theme = createMuiTheme({
@@ -30,6 +31,14 @@ const styles = _ => ({
   },
   hidden: {
     display: 'none',
+  },
+  tooltip: {
+    backgroundColor: theme.palette.common.white,
+    color: theme.palette.text.primary,
+    boxShadow: theme.shadows[1],
+    fontSize: 14,
+    width: 240,
+    height: 60,
   },
 });
 
@@ -62,11 +71,54 @@ class App extends Component {
           </Breadcrumb>
         </Typography>
         </div>
-        <div style={{marginLeft: 15, marginTop: 15}}>
-        <Typography variant='h4'>
-          Changed the effects in the main solo
-        </Typography>
-        </div>
+        <Grid
+          container
+          direction="row"
+          justify="flex-start"
+          alignItems="center"
+          style={{marginLeft: 15 }}
+        >
+          <Grid item xs={6}>
+            <Typography variant='h4'>
+              Changed the effects in the main solo
+            </Typography>
+          </Grid>
+          <Grid item xs={4}>
+            <Tooltip
+              title={
+                <Grid 
+                  container
+                  direction="row"
+                  justify="space-between"
+                  alignItems="center"
+                >
+                  <Grid item xs={6}>
+                    <b style={{color: '#27ae60'}}>Green</b>
+                  </Grid>
+                  <Grid item xs={6}>
+                    no changes
+                  </Grid>
+                  <Grid item xs={6}>
+                    <b style={{color: '#e67e22'}}>Orange</b>
+                  </Grid>
+                  <Grid item xs={6}>
+                    light changes
+                  </Grid>
+                  <Grid item xs={6}>
+                    <b style={{color: '#e74c3c'}}>Red</b>
+                  </Grid>
+                  <Grid item xs={6}>
+                    significant changes
+                  </Grid>
+                </Grid>
+              }
+              classes={{ tooltip: classes.tooltip }}
+            >
+              <img src="/images/waveform_heatmap.png" height='70' width='90%' />
+            </Tooltip>
+          </Grid>
+        </Grid>
+        <Divider />
         <Description user='martin' date='November 27, 1967 10:10' />
         <Divider />
         <Grid
