@@ -9,6 +9,7 @@ import PauseIcon from '@material-ui/icons/Pause';
 import Forward5Icon from '@material-ui/icons/Forward5';
 import Replay5Icon from '@material-ui/icons/Replay5';
 import Grid from '@material-ui/core/Grid';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const styles = _ => ({
   bigIcon: {
@@ -19,6 +20,9 @@ const styles = _ => ({
     height: 28,
     width: 28,
   },
+  progress: {
+    textAlign: 'center',
+  },
 });
 
 class Wavesurfer extends React.Component {
@@ -26,6 +30,7 @@ class Wavesurfer extends React.Component {
     playing: false,
     pos: 0,
     duration: 0,
+    loaded: false,
   };
 
   handleTogglePlay = _ => {
@@ -59,6 +64,7 @@ class Wavesurfer extends React.Component {
   onReady = e => {
     this.setState({
       duration: e.wavesurfer.getDuration(),
+      loaded: true,
     });
   }
 
@@ -72,7 +78,13 @@ class Wavesurfer extends React.Component {
         justify="flex-start"
         alignItems="stretch"
       >
-        <Grid item xs={12}>
+        <Grid
+          item
+          xs={12}
+        >
+          {!this.state.loaded && <div className={classes.progress}>
+            <CircularProgress />
+          </div>}
           <Ws
             audioFile={'audio/ohdarling.mpeg'}
             pos={this.state.pos}
@@ -96,18 +108,18 @@ class Wavesurfer extends React.Component {
             alignItems="center"
           >
             <Tooltip title="Replay 5 seconds">
-              <IconButton onClick={this.handlePrevious}>
+              <IconButton onClick={this.handlePrevious} disabled={!this.state.loaded}>
                 <Replay5Icon className={classes.smallIcon}/>
               </IconButton>
             </Tooltip>
             <Tooltip title={this.state.playing ? "Pause" : "Play"}>
-              <IconButton onClick={this.handleTogglePlay}>
+              <IconButton onClick={this.handleTogglePlay} disabled={!this.state.loaded}>
                 {!this.state.playing && <PlayArrowIcon className={classes.bigIcon}/>}
                 {this.state.playing && <PauseIcon className={classes.bigIcon}/>}
               </IconButton>
             </Tooltip>
             <Tooltip title="Skip 5 seconds">
-              <IconButton onClick={this.handleNext}>
+              <IconButton onClick={this.handleNext} disabled={!this.state.loaded}>
                 <Forward5Icon className={classes.smallIcon}/>
               </IconButton>
             </Tooltip>
