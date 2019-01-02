@@ -114,7 +114,7 @@ class App extends Component {
               }
               classes={{ tooltip: classes.tooltip }}
             >
-              <img src="/images/waveform_heatmap.png" height='70' width='90%' />
+              <img src="/images/waveform_heatmap2.png" width='90%' />
             </Tooltip>
           </Grid>
         </Grid>
