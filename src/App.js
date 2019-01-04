@@ -9,6 +9,7 @@ import Description from './components/Description';
 import Divider from '@material-ui/core/Divider';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
 import Breadcrumb from './components/Breadcrumb';
 import Wavesurfer from './components/Wavesurfer';
 import Typography from '@material-ui/core/Typography';
@@ -28,6 +29,12 @@ const theme = createMuiTheme({
 const styles = _ => ({
   specs: {
     marginTop: 60,
+  },
+  specsCard: {
+    backgroundColor: '#34495e',
+  },
+  specsContent: {
+    color: 'white',
   },
   hidden: {
     display: 'none',
@@ -144,12 +151,38 @@ class App extends Component {
             {this.state.value === 1 && <Wavesurfer/>}
           </Grid>
           <Grid item xs={3} className={classes.specs}>
-            <Card>
+            <Card className={classes.specsCard}>
+              <CardHeader
+                style={{ backgroundColor: '#40739e', height: 12 }}
+                title={<Typography variant='subtitle1' style={{color: 'white'}}><b>Specs</b></Typography>}
+              />
               <CardContent>
-                <Typography>
-                  <b>Specs</b>
-                  <br/>
-                  TBD
+                <Typography className={classes.specsContent}>
+                  <Grid
+                    container
+                    direction="row"
+                    justify="space-between"
+                    alignItems="center"
+                  >
+                  {[
+                    {k: 'Sample Rate', v: '44.1 kHz'},
+                    {k: 'Format', v: 'MPEG Audio'},
+                    {k: 'Format Version', v: 'Version 1'},
+                    {k: 'Format Profile', v: 'Layer 3'},
+                    {k: 'Channels', v: 'Stereo'},
+                    {k: 'Duration', v: '3m 27s'},
+                  ].map((d) => {
+                    return (
+                      <>
+                        <Grid item xs={7}>
+                          {d.k}:
+                        </Grid>
+                        <Grid item xs={5}>
+                          <b>{d.v}</b>
+                        </Grid>
+                      </>
+                    )})}
+                  </Grid>
                 </Typography>
               </CardContent>
             </Card>
