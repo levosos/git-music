@@ -91,7 +91,7 @@ class Wavesurfer extends React.Component {
             onPosChange={this.handlePosChange}
             playing={this.state.playing}
             options= {{
-              waveColor: '#e17055',
+              waveColor: '#f19066',
               progressColor: '#00b894',
               cursorColor: '#0984e3',
               responsive: true,
