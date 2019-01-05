@@ -126,7 +126,7 @@ class App extends Component {
           </Grid>
         </Grid>
         <Divider />
-        <Description user='martin' date='November 27, 1967 10:10' />
+        <Description user='martin' date='April 1, 1969 10:10' />
         <Divider />
         <Grid
           container
