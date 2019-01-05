@@ -12,6 +12,8 @@ import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import ToggleButton from '@material-ui/lab/ToggleButton';
+import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 
 String.prototype.toHHMMSS = function () {
   var sec_num = parseInt(this, 10); // don't forget the second param
@@ -26,7 +28,7 @@ String.prototype.toHHMMSS = function () {
   // return hours+':'+minutes+':'+seconds;
 }
 
-const styles = _ => ({
+const styles = theme => ({
   bigIcon: {
     height: 45,
     width: 45,
@@ -38,6 +40,15 @@ const styles = _ => ({
   progress: {
     textAlign: 'center',
   },
+  toggleContainer: {
+    // height: 56,
+    // padding: `${theme.spacing.unit}px ${theme.spacing.unit * 2}px`,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    // margin: `${theme.spacing.unit}px 0`,
+    marginTop: 10,
+  },
 });
 
 class Wavesurfer extends React.Component {
@@ -47,6 +58,7 @@ class Wavesurfer extends React.Component {
     duration: 0,
     loaded: false,
     audio: 'audio/full.mp3',
+    view: 'stacked',
   };
 
   handleTogglePlay = _ => {
@@ -92,6 +104,12 @@ class Wavesurfer extends React.Component {
     });
   }
 
+  onViewChanged = (_, value) => {
+    this.setState({
+      view: value,
+    });
+  }
+
   render() {
     const { classes } = this.props;
     return (
@@ -102,10 +120,7 @@ class Wavesurfer extends React.Component {
         justify="flex-start"
         alignItems="stretch"
       >
-        <Grid
-          item
-          xs={12}
-        >
+        <Grid item>
           {!this.state.loaded && <div className={classes.progress}>
             <CircularProgress />
           </div>}
@@ -134,7 +149,7 @@ class Wavesurfer extends React.Component {
             onReady={this.onReady}
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item>
           <Grid
             container
             spacing={16}
@@ -165,6 +180,36 @@ class Wavesurfer extends React.Component {
             </Grid>
             <Grid item xs/>
           </Grid>
+        </Grid>
+        <Grid item>
+          <Grid
+            container
+            spacing={16}
+            direction={this.state.view == "side-by-side" ? "row" : "column"}
+            justify="center"
+            alignItems="center"
+            >
+            <Grid item xs={this.state.view == 'side-by-side' ? 6 : 8}>
+              <Tooltip title="Before the change">
+                <img src="images/redWave.png" style={{width: '100%'}} />
+              </Tooltip>
+            </Grid>
+            <Grid item xs={this.state.view == 'side-by-side' ? 6 : 8}>
+              <Tooltip title="After the change">
+                <img src="images/greenWave.png" style={{width: '100%'}} />
+              </Tooltip>
+            </Grid>
+          </Grid>
+          <div className={classes.toggleContainer}>
+            <ToggleButtonGroup exclusive value={this.state.view} onChange={this.onViewChanged}>
+              <ToggleButton value="side-by-side">
+                Side-by-side
+              </ToggleButton>
+              <ToggleButton value="stacked">
+                Stacked
+              </ToggleButton>
+            </ToggleButtonGroup>
+          </div>
         </Grid>
       </Grid>
       );
