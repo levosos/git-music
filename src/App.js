@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import blue from '@material-ui/core/colors/blue';
 import Conversation from './components/Conversation';
+import Merge from './components/Merge';
 import PrimarySearchAppBar from './components/PrimarySearchAppBar';
 import Description from './components/Description';
 import Divider from '@material-ui/core/Divider';
@@ -47,17 +48,28 @@ const styles = _ => ({
     width: 240,
     height: 60,
   },
+  merged: {
+    backgroundColor: '#9b59b6',
+    color: 'white',
+    paddingLeft: 10,
+    paddingRight: 10,
+  },
 });
 
 class App extends Component {
   state = {
     value: 0,
+    merged: false,
   };
   
   handleTabSelected = (_, value) => {
     this.setState({ value });
   };
   
+  onMerged = _ => {
+    this.setState({ merged: true });
+  }
+
   render() {
     const { classes } = this.props;
     return (
@@ -87,7 +99,7 @@ class App extends Component {
         >
           <Grid item xs={6}>
             <Typography variant='h4'>
-              Changed the effects in the main solo
+              {this.state.merged && <span className={classes.merged}>Merged:</span>}Changed the effects in the main solo
             </Typography>
           </Grid>
           <Grid item xs={4}>
@@ -188,6 +200,8 @@ class App extends Component {
             </Card>
             </Grid>
           </Grid>
+          <Divider style={{marginTop: 10 }}/>
+          <Merge onMerged={this.onMerged}/>
       </MuiThemeProvider>
     );
   }
