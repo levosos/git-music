@@ -200,6 +200,9 @@ class PrimarySearchAppBar extends React.Component {
               />
             </div>
             <div className={classes.grow} />
+            <Typography style={{marginRight: 15}}>
+              View interface as:
+            </Typography>
             <FormControl>
               <RadioGroup
                 value={this.props.view}
