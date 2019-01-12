@@ -175,19 +175,8 @@ const components = {
 };
 
 class Hashtags extends React.Component {
-  state = {
-    value: [
-        { label: 'Replacement', value: 'Replacement', },
-        { label: 'Solo', value: 'Solo', },
-        { label: 'Guitar', value: 'Guitar', },
-        { label: 'Effects', value: 'Effects', },
-    ],
-  };
-
   handleChange = value => {
-    this.setState({
-      value,
-    });
+    this.props.onChange(value);
   };
 
   render() {
@@ -215,7 +204,7 @@ class Hashtags extends React.Component {
           }}
           options={suggestions}
           components={components}
-          value={this.state.value}
+          value={this.props.tags}
           onChange={this.handleChange}
           placeholder="Select hashtags"
           isMulti

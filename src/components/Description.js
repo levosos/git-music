@@ -56,6 +56,13 @@ class Description extends React.Component {
     thumbUpClicked:     false,
     thumbDownCount:     0,
     thumbDownClicked:   false,
+    
+    tags: [
+      { label: 'Replacement', value: 'Replacement', },
+      { label: 'Solo',        value: 'Solo', },
+      { label: 'Guitar',      value: 'Guitar', },
+      { label: 'Effects',     value: 'Effects', },
+    ],
   };
   
   handleThumbUpClicked = _ => {
@@ -86,6 +93,10 @@ class Description extends React.Component {
       });
   };
 
+  handleTagsChanged = tags => {
+    this.setState({ tags: tags });
+  }
+
   render() {
     const { classes } = this.props;
     const user = Users[this.props.user];
@@ -106,11 +117,11 @@ class Description extends React.Component {
               <br/>
               <br/>
           </Typography>
-          {this.props.view == 'viewer' && ["Replacement", "Solo", "Guitar", "Effects"].map((label) => {
-            return <Chip label={label} color="primary" className={classes.chip}/>
+          {this.props.view == 'viewer' && this.state.tags.map((x) => {
+            return <Chip label={x.label} color="primary" className={classes.chip}/>
           })}
           {this.props.view == 'owner' && 
-            <Hashtags />
+            <Hashtags tags={this.state.tags} onChange={this.handleTagsChanged}/>
           }
           </Typography>
         </CardContent>
