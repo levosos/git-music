@@ -240,9 +240,9 @@ class Note extends React.Component {
 
     return (
       <Card className={classes.card}>
-        <CardHeader className={this.state.deleted ? classes.headerDeleted : (user.loggedIn ? classes.headerLoggedIn : classes.header)}
+        <CardHeader className={this.state.deleted ? classes.headerDeleted : (this.props.loggedIn ? classes.headerLoggedIn : classes.header)}
           avatar={<Avatar src={"/avatars/" + user.avatar + ".png"} className={classes.avatar} />}
-          action={user.loggedIn &&
+          action={this.props.loggedIn &&
             <React.Fragment>
 
                 <Snackbar
@@ -337,14 +337,14 @@ class Note extends React.Component {
         </CardContent>
         <CardActions className={classes.actions} disableActionSpacing>
             <Tooltip title="Like">
-                <IconButton disabled={this.state.deleted || user.loggedIn || this.state.thumbDownClicked} onClick={this.handleThumbUpClicked}>
+                <IconButton disabled={this.state.deleted || this.props.loggedIn || this.state.thumbDownClicked} onClick={this.handleThumbUpClicked}>
                     <Badge invisible={!this.state.thumbUpCount} badgeContent={this.state.thumbUpCount}>
                         <ThumbUpIcon className={this.state.thumbUpClicked ? classes.likeClicked : undefined} />
                     </Badge>
                 </IconButton>
             </Tooltip>
             <Tooltip title="Disike">
-                <IconButton disabled={this.state.deleted || user.loggedIn || this.state.thumbUpClicked} onClick={this.handleThumbDownClicked}>
+                <IconButton disabled={this.state.deleted || this.props.loggedIn || this.state.thumbUpClicked} onClick={this.handleThumbDownClicked}>
                     <Badge invisible={!this.state.thumbDownCount} badgeContent={this.state.thumbDownCount}>
                         <ThumbDownIcon className={this.state.thumbDownClicked ? classes.dislikeClicked : undefined} />
                     </Badge>

@@ -44,7 +44,7 @@ class Conversation extends React.Component {
     handleSubmit = message => {
         var notes = this.state.notes;
         notes.push({
-          user: 'martin',
+          user: this.props.user,
           date: 'April 5, 1969 20:09',
           content: message
         });
@@ -63,6 +63,7 @@ class Conversation extends React.Component {
                 thumbDownCount={note.thumbDownCount}
                 user={note.user}
                 date={note.date}
+                loggedIn={this.props.user == note.user}
             >
               {note.content}
             </Note>})}

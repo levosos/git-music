@@ -164,7 +164,7 @@ class App extends Component {
                 <Tab label="Change" />
               </Tabs>
             </Toolbar>
-            <div className={this.state.value === 0 ? null : classes.hidden}><Conversation/></div>
+            <div className={this.state.value === 0 ? null : classes.hidden}><Conversation user={this.state.view == 'owner' ? 'martin' : 'paul'}/></div>
             {this.state.value === 1 && <Wavesurfer/>}
           </Grid>
           <Grid item xs={3} className={classes.specs}>

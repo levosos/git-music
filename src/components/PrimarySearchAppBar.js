@@ -235,7 +235,7 @@ class PrimarySearchAppBar extends React.Component {
                 onClick={this.handleProfileMenuOpen}
                 color="inherit"
               >
-              <Avatar src={"/avatars/1.png"} className={classes.avatar} />
+              <Avatar src={this.props.view == 'owner' ? "/avatars/1.png" : '/avatars/paul.png'} className={classes.avatar} />
               </IconButton>
             </div>
             <div className={classes.sectionMobile}>
