@@ -60,6 +60,7 @@ class App extends Component {
   state = {
     value: 0,
     merged: false,
+    view: 'owner',
   };
   
   handleTabSelected = (_, value) => {
@@ -70,11 +71,15 @@ class App extends Component {
     this.setState({ merged: true });
   }
 
+  onViewChange = v => {
+    this.setState({ view: v });
+  }
+
   render() {
     const { classes } = this.props;
     return (
       <MuiThemeProvider theme={theme}>
-        <PrimarySearchAppBar />
+        <PrimarySearchAppBar view={this.state.view} onViewChange={this.onViewChange} />
         <div style={{marginLeft: 15, marginTop: 15}}>
         <Typography variant='h6' color="primary">
           <Breadcrumb image="TheBeatles.jpg">
@@ -138,7 +143,7 @@ class App extends Component {
           </Grid>
         </Grid>
         <Divider />
-        <Description user='martin' date='April 1, 1969 10:10' />
+        <Description user='martin' date='April 1, 1969 10:10' view={this.state.view}/>
         <Divider />
         <Grid
           container

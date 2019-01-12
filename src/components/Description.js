@@ -106,10 +106,12 @@ class Description extends React.Component {
               <br/>
               <br/>
           </Typography>
-          {/* {["Replacement", "Solo", "Guitar", "Effects"].map((label) => {
+          {this.props.view == 'viewer' && ["Replacement", "Solo", "Guitar", "Effects"].map((label) => {
             return <Chip label={label} color="primary" className={classes.chip}/>
-          })} */}
-          <Hashtags />
+          })}
+          {this.props.view == 'owner' && 
+            <Hashtags />
+          }
           </Typography>
         </CardContent>
         <CardActions className={classes.actions} disableActionSpacing>

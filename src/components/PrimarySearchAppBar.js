@@ -19,6 +19,10 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import { Avatar } from '@material-ui/core';
 import grey from '@material-ui/core/colors/grey';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
 
 const styles = theme => ({
   root: {
@@ -116,6 +120,10 @@ class PrimarySearchAppBar extends React.Component {
     this.setState({ mobileMoreAnchorEl: null });
   };
 
+  handleRadioChange = event => {
+    this.props.onViewChange(event.target.value);
+  };
+
   render() {
     const { anchorEl, mobileMoreAnchorEl } = this.state;
     const { classes } = this.props;
@@ -192,6 +200,24 @@ class PrimarySearchAppBar extends React.Component {
               />
             </div>
             <div className={classes.grow} />
+            <FormControl>
+              <RadioGroup
+                value={this.props.view}
+                onChange={this.handleRadioChange}
+                row
+              >
+                <FormControlLabel
+                  value="owner"
+                  control={<Radio color="default" />}
+                  label="Owner"
+                />
+                <FormControlLabel
+                  value="viewer"
+                  control={<Radio color="default" />}
+                  label="Viewer"
+                />
+              </RadioGroup>
+            </FormControl>
             <div className={classes.sectionDesktop}>
               <IconButton color="inherit">
                 <Badge badgeContent={2} color="secondary">
