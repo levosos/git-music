@@ -5,6 +5,7 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import blue from '@material-ui/core/colors/blue';
 import Conversation from './components/Conversation';
 import Merge from './components/Merge';
+import Review from './components/Review';
 import PrimarySearchAppBar from './components/PrimarySearchAppBar';
 import Description from './components/Description';
 import Divider from '@material-ui/core/Divider';
@@ -206,7 +207,8 @@ class App extends Component {
             </Grid>
           </Grid>
           <Divider style={{marginTop: 10 }}/>
-          <Merge onMerged={this.onMerged}/>
+          {this.state.view == 'owner' && <Merge onMerged={this.onMerged}/>}
+          {this.state.view == 'viewer' && <Review />}
       </MuiThemeProvider>
     );
   }
