@@ -73,7 +73,10 @@ class App extends Component {
   }
 
   onViewChange = v => {
-    this.setState({ view: v });
+    this.setState({ 
+      view: v,
+      merged: false,
+    });
   }
 
   render() {
