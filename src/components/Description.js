@@ -19,6 +19,7 @@ import ShareIcon from '@material-ui/icons/Share';
 import Users from '../Users';
 import Chip from '@material-ui/core/Chip';
 import Hashtags from './Hashtags';
+import UserInfo from './UserInfo';
 
 const styles = theme => ({
   chip: {
@@ -104,7 +105,7 @@ class Description extends React.Component {
     return (
       <Card className={classes.card}>
         <CardHeader className={classes.header}
-          avatar={<Avatar src={"/avatars/" + user.avatar + ".png"} className={classes.avatar} />}
+          avatar={<UserInfo user={this.props.user}><Avatar src={"/avatars/" + user.avatar + ".png"} className={classes.avatar} /></UserInfo>}
           title={<b>{user.name}</b>}
           subheader={this.props.date}
         />

@@ -35,6 +35,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
 import InfoIcon from '@material-ui/icons/Info';
 import WarningIcon from '@material-ui/icons/Warning';
+import UserInfo from './UserInfo';
 
 const snackbarStyles = theme => ({
     deletesnackbar: {
@@ -241,7 +242,7 @@ class Note extends React.Component {
     return (
       <Card className={classes.card}>
         <CardHeader className={this.state.deleted ? classes.headerDeleted : (this.props.loggedIn ? classes.headerLoggedIn : classes.header)}
-          avatar={<Avatar src={"/avatars/" + user.avatar + ".png"} className={classes.avatar} />}
+          avatar={<UserInfo user={this.props.user}><Avatar src={"/avatars/" + user.avatar + ".png"} className={classes.avatar} /></UserInfo>}
           action={this.props.loggedIn &&
             <React.Fragment>
 

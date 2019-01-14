@@ -1,12 +1,12 @@
 const Users = {
     'john': {
         name: 'John Lennon',
-        role: 'vocals/guitar',
+        role: 'vocals / guitar',
         avatar: 'john',
     },
     'paul': {
         name: 'Paul McCartney',
-        role: 'vocals/guitar',
+        role: 'vocals / guitar',
         avatar: 'paul',
     },
     'ringo': {
